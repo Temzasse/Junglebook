@@ -60,6 +60,10 @@ header img{
 }
 
 /* ---- Index ---- */
+.jumbotron{
+	background: rgba(224,224,224, 0.8);
+	border-radius: 0px 20px 0px 20px;
+}
 .login{
 	margin-bottom: 30px;
 }
