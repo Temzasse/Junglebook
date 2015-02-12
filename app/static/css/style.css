@@ -127,23 +127,8 @@ header img{
 .profile-delete{
 	margin-top: 50px;
 }
-
-.profile-shared-bananas-monkeys h4:before, .profile-shared-bananas-monkeys h4:after{
-	width: 16px;
-    content: " ";
-    background-image: url("../images/banana.png");
-    height:20px;
-}
-.profile-shared-bananas-monkeys h4:after{
-	-moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";	
-}
 .profile-shared-bananas-monkeys{
-/*	margin-top: 20px;*/
+	/*margin-top: 20px;*/
 }
 .profile-shared-bananas-monkeys h4{
 	text-align: center;
@@ -152,7 +137,7 @@ header img{
 	font-size: 18px;
 }
 .profile-img{
-	margin-bottom: 20px;
+	margin-bottom: 20px;	
 }
 .avatar{
 	width: 25%;
