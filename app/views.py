@@ -80,7 +80,7 @@ def profile(monkeyname, page=1):
 		return render_template('profile.html', user=r_user, edit=0, c_user=c_user)
 	else:
 		# get the shared bananas
-		shared_bananas = c_user.shared_bananas.paginate(page,2,False)
+		shared_bananas = c_user.shared_bananas.paginate(page,5,False)
 		return render_template('profile.html', user=c_user, edit=1, shared_bananas=shared_bananas)
 
 
@@ -162,15 +162,15 @@ def jungle(page=1):
 
 	if sort_param == "name":
 		# exclude the current user and sort by monkeyname
-		monkeys = User.query.filter(User.monkeyname != session['monkeyname']).order_by(func.lower(User.monkeyname)).paginate(page,5,False)
+		monkeys = User.query.filter(User.monkeyname != session['monkeyname']).order_by(func.lower(User.monkeyname)).paginate(page,10,False)
 	    	return render_template('jungle.html', monkeys=monkeys, sort_param=sort_param, c_user=c_user)
 	elif sort_param == "bestfriend":
 		# exclude the current user and sort by name of bestfriend
-		monkeys = User.query.filter(User.monkeyname != session['monkeyname']).order_by(func.lower(User.best_friend)).paginate(page,5,False)
+		monkeys = User.query.filter(User.monkeyname != session['monkeyname']).order_by(func.lower(User.best_friend)).paginate(page,10,False)
 	    	return render_template('jungle.html', monkeys=monkeys, sort_param=sort_param, c_user=c_user)
 	elif sort_param == "bananas":
 		# exclude the current user and sort by amount of shared bananas
-		monkeys = User.query.filter(User.monkeyname != session['monkeyname']).order_by(User.num_shared_bananas.desc()).paginate(page,5,False)
+		monkeys = User.query.filter(User.monkeyname != session['monkeyname']).order_by(User.num_shared_bananas.desc()).paginate(page,10,False)
 		return render_template('jungle.html', monkeys=monkeys, sort_param=sort_param, c_user=c_user)
 	# else:
 	# 	# exclude the current user
