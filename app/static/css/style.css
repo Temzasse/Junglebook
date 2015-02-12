@@ -82,6 +82,7 @@ header img{
 /* ---- Profile ----*/
 .profile-info{
 	border-left: 1px solid #eee;
+	margin-bottom: 40px;
 }
 .profile-info h2{
 	margin: 0;
