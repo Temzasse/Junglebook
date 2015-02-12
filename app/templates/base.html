@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Monkey Friends</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <!--<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">-->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Share:400,700italic,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- <nav>
+            <span class="brand text-left">Junglebook</span>
+            <ul>
+                {% if 'monkeyname' in session %}
+                <li><a href="{{url_for('jungle')}}">Jungle</a></li>
+                <li><a href="{{url_for('profile', monkeyname=session['monkeyname'])}}">{{session['monkeyname']}} | Profile</a></li>
+                <li><a href="{{url_for('logout')}}">Logout</a></li>
+                {% else %}
+                <li><a href="{{url_for('register')}}">Register</a></li>
+                <li><a href="{{url_for('login')}}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav> -->
+
+
+
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span> 
+              </button>
+              <a class="navbar-brand brand" href="{{url_for('index')}}">Junglebook</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    {% if 'monkeyname' in session %}
+                    <li><a href="{{url_for('jungle')}}">Jungle</a></li>
+                    <li><a href="{{url_for('profile', monkeyname=session['monkeyname'])}}">{{session['monkeyname']}} | Profile</a></li>
+                    <li><a href="{{url_for('logout')}}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{{url_for('register')}}">Register</a></li>
+                    <li><a href="{{url_for('login')}}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flashed-messages">
+            {% for message in messages %}
+                <li>{{ message }} </li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+
+    </div>
+    <!-- /container-fluid -->
+
+    <!-- scripts -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>

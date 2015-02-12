@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+    {% block content %}
+    <div class="text-center">
+        <h1>Welcome to the Jungle!</h1>
+        <p class="lead">Sort through the Jungle and share your bananas:</p>
+    </div>
+    <div class="row">
+        <div class="sort-wrapper col-xs-12 col-sm-6 col-sm-offset-3">
+            <div class="col-sm-12 col-lg-6 col-lg-offset-3 sort-flex">
+                <strong>Sort By:</strong>
+                <select class="pull-right form-control">
+                    {% for value in [["name", "Name"], ["bestfriend", "Bestfriend"], ["bananas", "Bananas shared"]] %}
+                        {% if value[0] == sort_param %}
+                        <option selected value="{{value[0]}}">{{value[1]}}</option>
+                        {% else %}
+                        <option value="{{value[0]}}">{{value[1]}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div> 
+    </div>
+
+    <div class="row">
+        <div class="jungle col-xs-12 col-sm-6 col-sm-offset-3">
+            {% for monkey in monkeys.items %}
+            <div class="monkey col-xs-12">
+                <div class="monkey-avatar monkey-avatar-{{monkey.avatar}} col-xs-2"></div>
+                <div class="monkey-info col-xs-8">
+                    <a href="{{url_for('profile', monkeyname=monkey.monkeyname)}}">
+                        <span class="monkey-name">{{monkey.monkeyname}}</span>
+                    </a>
+
+                    {% if monkey.best_friend %}
+                    <div class="monkey-bf">
+                        Best friend: <a href="{{url_for('profile', monkeyname=monkey.monkeyname)}}">{{monkey.best_friend}}</a>
+                    </div>
+                    {% else %}
+                    <div class="monkey-bf">
+                        No best friend
+                    </div>
+                    {% endif %}
+                    <div class="monkey-friends">Bananas shared: {{monkey.shared_bananas.count()}}</div>
+                </div>
+                <div class="share-banana-wrapper col-xs-2">
+                    {% if c_user.is_sharing_banana(monkey) %}
+                    <a href="{{url_for('unshare_banana', monkeyname=monkey.monkeyname)}}">
+                        <div class="banana-img sharing-banana" data-toggle="tooltip" data-placement="right" title="Stop sharing the banana"></div>
+                    </a>
+                    {% else %}
+                    <a href="{{url_for('share_banana', monkeyname=monkey.monkeyname)}}">
+                        <div class="banana-img not-sharing-banana" data-toggle="tooltip" data-placement="right" title="Share banana"></div>
+                     </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+
+  
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="pagination-wrapper col-xs-12 col-sm-6 col-sm-offset-3">
+        {% if monkeys.has_prev %}<a href="{{ url_for('jungle', page=monkeys.prev_num, sort=sort_param) }}"><span class="glyphicon glyphicon-chevron-left"></span></a>{% else %}<span class="glyphicon glyphicon-chevron-left"></span>{% endif %} | 
+        {% if monkeys.has_next %}<a href="{{ url_for('jungle', page=monkeys.next_num, sort=sort_param) }}"><span class="glyphicon glyphicon-chevron-right"></span></a>{% else %}<span class="glyphicon glyphicon-chevron-right"></span>{% endif %}
+        </div>
+    </div>
+    {% endblock %}

@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+    {% block content %}
+
+    <div class="row profile-wrapper">
+    	<div class="col-sm-6 col-sm-offset-3 col-xs-12">
+    		{% if edit %}
+    		<div class="row">
+    			<div class="col-xs-12">
+    				<h1>Your Profile
+					<div class="pull-right dropdown">
+					  	
+						<span class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></span>
+					  
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						    <li>
+						    	<a href="{{ url_for('edit_profile', monkeyname=user.monkeyname)}}">Edit profile</a>
+						    </li>
+					  </ul>
+					</div>
+					</h1>
+				</div>
+			</div>
+
+    		
+
+    		{% else %}
+    		<h1>{{user.monkeyname}}'s Profile</h1>
+    		{% endif %}
+    		<br>
+    		<div class="row">
+		    	<div class="col-sm-4 profile-img">
+		    		<div id="current-avatar" class="current-avatar-{{user.avatar}}">
+		    		</div>
+		    	</div>
+		    	<div class="col-sm-8 profile-info">
+		    		<h2 class="profile-name">{{ user.monkeyname }}</h2>
+		    		<ul>
+		    			<li class="profile-item"><span>Age</span>
+		    				<span>{{ user.age }}</span>
+		    			</li>
+		    			<li class="profile-item">
+		    				<span>Email</span>
+		    				<span>{{ user.email }}</span>
+		    			</li>
+		    			<li class="profile-item">
+		    				{% if user.best_friend %}
+			    			<span>Best Friend: </span><a href="{{url_for('profile', monkeyname=user.best_friend)}}">{{user.best_friend}}</a>
+
+			    			{% if edit %}
+			    			<a class="pull-right" href="{{url_for('remove_best_friend', monkeyname=user.best_friend)}}"><span class="glyphicon glyphicon-remove"></span></a>
+			    			{% endif %}
+
+			    			{% else %}
+			    			<span>No best friend yet</span>
+			    			{% endif %}
+			    		</li>
+			    		<li class="profile-item">
+			    			<span class="">Bananas shared:</span>
+			    			<span>{{user.shared_bananas.count()}}</span>
+			    		</li>
+		    		</ul>
+		    		
+			    	{% if not edit %}
+			    	
+			    	{% if c_user.is_sharing_banana(user) %}
+			    	<div class="pull-right" style="width:40px;height:40px;">
+	                    <a href="{{url_for('unshare_banana', monkeyname=user.monkeyname)}}">
+	                        <div class="banana-img sharing-banana" data-toggle="tooltip" data-placement="right" title="Stop sharing the banana"></div>
+	                    </a>
+                	</div>
+                    {% else %}
+                    <div class="pull-right" style="width:40px;height:40px;">
+	                    <a href="{{url_for('share_banana', monkeyname=user.monkeyname)}}">
+	                        <div class="banana-img not-sharing-banana" data-toggle="tooltip" data-placement="right" title="Share banana"></div>
+	                     </a>
+                     </div>
+                    {% endif %}
+
+                    {% if c_user.best_friend == user.monkeyname %}
+                    <span>{{user.monkeyname}} is your best friend</span>
+                    {% else %}
+		    		<div class="profile-add-best-friend">
+		    			<a class="btn btn-default" href="{{ url_for('add_best_friend', monkeyname=user.monkeyname) }}">Make best friend</a>
+		    			<!-- <a class="btn btn-default" href="{{ url_for('share_banana', monkeyname=user.monkeyname) }}">Share banana</a> -->
+		    		</div>
+		    		{% endif %}
+
+			    	{% endif %}
+		    	
+		    	</div>
+	    	</div>
+
+
+	    	{% if edit %}
+	    	<div class="row profile-shared-bananas-monkeys">
+	    		{% if user.shared_bananas.count() > 0%}
+	    		<h4>You have shared bananas with:</h4>
+	    		<div class="col-xs-12">
+					<ul>
+			    	{% for monkey in shared_bananas.items %}
+				    	<li class="monkey">
+				    		<div class="monkey-info col-xs-10">
+				    			<a href="{{url_for('profile', monkeyname=monkey.monkeyname)}}">{{monkey.monkeyname}}</a>
+				    		</div>
+				    		<div class="share-banana-wrapper col-xs-2">
+					    		<a href="{{url_for('unshare_banana', monkeyname=monkey.monkeyname)}}">
+	                       			<div class="banana-img sharing-banana" data-toggle="tooltip" data-placement="right" title="Stop sharing the banana"></div>
+	                   			</a>
+                   			</div>
+				    	</li>
+			    	{% endfor %}
+					</ul>
+	    		</div>
+
+	    		<div class="row">
+			        <div class="pagination-wrapper col-xs-12 col-sm-6 col-sm-offset-3">
+			        {% if shared_bananas.has_prev %}<a href="{{ url_for('profile', monkeyname=user.monkeyname, page=shared_bananas.prev_num) }}"><span class="glyphicon glyphicon-chevron-left"></span></a>
+			        {% else %}<span class="glyphicon glyphicon-chevron-left"></span>{% endif %} | 
+			        {% if shared_bananas.has_next %}<a href="{{ url_for('profile', monkeyname=user.monkeyname, page=shared_bananas.next_num) }}"><span class="glyphicon glyphicon-chevron-right"></span></a>{% else %}<span class="glyphicon glyphicon-chevron-right"></span>{% endif %}
+			        </div>
+			    </div>
+
+	    		{% else %}
+	    		<h4>You haven't shared any bananas yet!</h4>
+	    		<h4>Search monkeys from <a href="{{url_for('jungle')}}">Jungle</a>.</h4>
+	    		{% endif %}
+	    		
+	    	</div>
+	    	{% endif %}
+	    	
+	    </div>
+    </div>
+    <!--for tests : profile -->
+    {% endblock %}

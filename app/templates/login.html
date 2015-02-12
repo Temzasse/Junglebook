@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+    <h2>Login</h2>
+    <br>
+    <form class="form-horizontal" action="{{ url_for('login') }}" method=post>
+      {{ form.hidden_tag() }}
+
+      {% for message in form.monkeyname.errors %}
+      <div class="flash">{{ message }}</div>
+      {% endfor %}
+      <div class="form-group">
+        {{ form.monkeyname.label(**{'class':'control-label col-sm-2'}) }}
+        <div class="col-sm-10">
+          {{ form.monkeyname(**{"class":"form-control", "placeholder":"Your Monkey's name"}) }}
+        </div>
+      </div>
+
+      {% for message in form.password.errors %}
+      <div class="flash">{{ message }}</div>
+      {% endfor %}
+      <div class="form-group">
+        {{ form.password.label(**{'class':'control-label col-sm-2'}) }}
+        <div class="col-sm-10">
+          {{ form.password(**{"class":"form-control", "placeholder":"Password"}) }}
+        </div>
+      </div>
+    
+    <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input class="btn btn-default" id="submit" name="submit" type="submit" value="Login">
+	    </div>
+	</div>
+      
+    </form>
+    </div>
+  </div>
+  <!--for tests : login -->
+     
+{% endblock %}
