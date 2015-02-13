@@ -9,6 +9,9 @@ from models import db, User
 @app.route('/')
 @app.route('/index')
 def index():
+	if 'monkeyname' in session:
+		return redirect(url_for('profile', monkeyname=session['monkeyname']))
+
     return render_template('index.html')
 
 
