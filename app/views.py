@@ -11,8 +11,7 @@ from models import db, User
 def index():
 	if 'monkeyname' in session:
 		return redirect(url_for('profile', monkeyname=session['monkeyname']))
-
-    return render_template('index.html')
+	return render_template('index.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
