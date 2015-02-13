@@ -41,7 +41,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span> 
               </button>
+              {% if 'monkeyname' in session %}
+              <a class="navbar-brand brand" href="{{url_for('jungle')}}">Junglebook</a>
+              {% else %}
               <a class="navbar-brand brand" href="{{url_for('index')}}">Junglebook</a>
+              {% endif %}
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
