@@ -227,12 +227,12 @@ def remove_best_friend(monkeyname):
 		return redirect(url_for('profile', monkeyname=c_user.monkeyname))
 	u = c_user.remove_best_friend(user)
 	if u is None:
-		flash('Cannot remove' + monkeyname + ' as best friend.')
+		flash('Cannot remove ' + monkeyname + ' as best friend.')
 		return redirect(url_for('profile', monkeyname=c_user.monkeyname))
 
 	db.session.add(u)
 	db.session.commit()
-	flash('You have removed your best friend:' + monkeyname + '!')
+	flash('You have removed your best friend: ' + monkeyname + '!')
 	return redirect(url_for('profile', monkeyname=c_user.monkeyname))
 
 
