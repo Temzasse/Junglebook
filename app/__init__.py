@@ -9,3 +9,7 @@ db = SQLAlchemy(app)
 
 from app import models, views
 
+# if __name__ == '__main__':
+#     app.debug = False
+#     app.run()
+
