@@ -1,7 +1,7 @@
 # Junglebook
 A simple Flask application where you can be a monkey and share your bananas with other monkeys.
 
-Live demo with fake (but awesome!) monkeys: [Junglebook - Demo](http://the-junglebook.herokuapp.com/)
+Live demo with fake (but awesome!) monkeys: [Junglebook - Demo](http://the-junglebook.herokuapp.com/).
 The page is responsive and should work just fine with a mobile device.
 
 Junglebook has the following functionalities:
