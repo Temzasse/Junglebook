@@ -17,4 +17,4 @@ Junglebook has the following functionalities:
  
 Testing was done with unittest.
 
-All used techologies etc: Python, Flask, HTML, CSS, Bootsrap, Javascript, SQLAlchemy, unittest, WTForms, Heroku.
+All used techologies etc: Python, Flask, HTML, CSS, Bootsrap, Javascript, SQLAlchemy, PostgreSQL, unittest, WTForms, Heroku.
