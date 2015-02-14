@@ -23,6 +23,7 @@ def register():
 
 	if request.method == 'POST':
 		if form.validate() == False:
+			print "wtf"
 			return render_template('register.html', form=form)
 		else:
 			newuser = User(form.monkeyname.data, form.age.data, form.email.data, form.password.data)

@@ -26,7 +26,7 @@ class LoginForm(Form):
 
 
 class RegisterForm(Form):
-	monkeyname = TextField("Name",  [validators.Required("Please enter your Monkey's name."), validators.Length(max=20, message="Your Monkey's name is too long.")])
+	monkeyname = TextField("Name",  [validators.Required("Please enter your Monkey's name."), validators.Length(max=20, message="Your Monkey's name is too long."), validators.Regexp('^\w+$', message="Monkey's name must contain only letters numbers or underscore")])
 	age = IntegerField("Age",  [validators.Required("Please enter your age."), validators.NumberRange(min=0, max=120, message="Please enter a reasonable positive age.")])
 	email = TextField("Email",  [validators.Required("Please enter your email address."), validators.Email("Please enter your email address.")])
 	password = PasswordField('Password', [validators.Required("Please enter a password.")])
@@ -38,7 +38,7 @@ class RegisterForm(Form):
 	def validate(self):
 		if not Form.validate(self):
 			return False
-     
+
 		email_taken = User.query.filter_by(email = self.email.data.lower()).first()
 		if email_taken:
 			self.email.errors.append("That email is already taken")
@@ -48,13 +48,13 @@ class RegisterForm(Form):
 		if monkeyname_taken:
 			self.monkeyname.errors.append("That name is already taken")
 			return False
-		else:
-			return True
+		
+		return True
 
 
 
 class EditProfileForm(Form):
-	monkeyname = TextField("Monkey name",  [validators.Optional(), validators.Length(max=20, message="Your Monkey's name is too long.")])
+	monkeyname = TextField("Monkey name",  [validators.Optional(), validators.Length(max=20, message="Your Monkey's name is too long."), validators.Regexp('^\w+$', message="Monkey's name must contain only letters numbers or underscore")])
 	age = IntegerField("Age",  [validators.Optional(), validators.NumberRange(min=0, max=120, message="Please enter a reasonable positive age.")])
 	email = TextField("Email",  [validators.Optional(), validators.Email("Please enter your email address.")])
 	avatar = HiddenField("Avatar", [validators.Optional()])
